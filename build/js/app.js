@@ -150,7 +150,7 @@ function Player() {
   // Canvas extremeties
   this.canvasTopEdge = -45;
   this.canvasBottomEdge = 370;
-  this.canvasLeftEdge = 100;
+  this.canvasLeftEdge = -2;
   this.canvasRightEdge = 400;
 
   // Distance for character to move x y.
@@ -178,6 +178,7 @@ function Player() {
         break;
       case 'left':
         this.x > this.canvasLeftEdge ? this.x -= this.moveHor : this.x;
+        console.log(this.x);
         break;
       case 'right':
         this.x < this.canvasRightEdge ? this.x += this.moveHor : this.x;
