@@ -24,10 +24,24 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function() {
+function Player() {
+
+  // Initial character graphic
   this.sprite = 'images/char-boy.png';
+
+  // Initial character position
   this.x = 200;
-  this.y = 408;
+  this.y = 370;
+
+  // Canvas extremeties
+  this.canvasTopEdge = -45;
+  this.canvasBottomEdge = 370;
+  this.canvasLeftEdge = 100;
+  this.canvasRightEdge = 400;
+
+  // Distance for character to move x y.
+  this.moveHor = 101;
+  this.moveVer = 83;
 
   this.update = function() {
     this.render();
@@ -43,20 +57,16 @@ var Player = function() {
 
     switch (keyCode) {
       case 'up':
-        console.log('up');
-        this.y -= 100;
+        this.y > this.canvasTopEdge ? this.y -= this.moveVer : this.y;
         break;
       case 'down':
-        this.y += 100;
-        console.log('down');
+      this.y < this.canvasBottomEdge ? this.y += this.moveVer : this.y;
         break;
       case 'left':
-        this.x -= 100;
-        console.log('left');
+        this.x > this.canvasLeftEdge ? this.x -= this.moveHor : this.x;
         break;
       case 'right':
-        this.x += 100;
-        console.log('right');
+        this.x < this.canvasRightEdge ? this.x += this.moveHor : this.x;
         break;
       default:
 

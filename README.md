@@ -41,3 +41,9 @@ In addition to the basic functionality, you can add more cool functionality to y
 * Score: you can implement a score for the game. For example, the score can increase each time the player reaches the water, and it can be reset to 0 when collision occurs (or it can be reduced)
 * Collectibles: you can add gems to the game, allowing the player to collect them to make the game more interesting
 Anything else you like!
+
+## Calculation
+
+Canvas Size is: 505 x 606
+Individual Block: 101 x 83
+Image Height: 171
