@@ -18,20 +18,20 @@ For detailed instructions on how to get started, check out this [guide](https://
 
 In this game you have a Player and Enemies (bugs). The goal of the player is to reach the water, without colliding into any one of the enemies.
 
-* The player can move left, right, up and down
-* The enemies move at varying speeds on the paved block portion of the game board
-* Once a the player collides with an enemy, the game is reset and the player moves back to the starting square
-* Once the player reaches the water (i.e., the top of the game board), the game is won
+* The player can move left, right, up and down [ ]
+* The enemies move at varying speeds on the paved block portion of the game board [ ]
+* Once a the player collides with an enemy, the game is reset and the player moves back to the starting square [ ]
+* Once the player reaches the water (i.e., the top of the game board), the game is won [ ]
 * Check out a quick video demo of the game in action below!
 
 **Rubiric Requirements**
 The game functions correctly and runs error free
 
-* Player can not move off screen
-* Vehicles cross the screen
-* Vehicle-player collisions happen logically (not too early or too late)
-* Vehicle-player collision resets the game
-* Something happens when player wins
+* Player can not move off screen [ ]
+* Vehicles cross the screen [ ]
+* Vehicle-player collisions happen logically (not too early or too late) [ ]
+* Vehicle-player collision resets the game [ ]
+* Something happens when player wins [ ]
 
 ## Additional Functionality (Optional)
 
@@ -47,3 +47,13 @@ Anything else you like!
 Canvas Size is: 505 x 606
 Individual Block: 101 x 83
 Image Height: 171
+
+## Writing functionality with Pseudo
+
+## Getting and object to instantiate itself
+
+## Spawing enemies
+Create another class that will detect how many objects are on the screen and generate a new enemy object with various parameters.
+Need a method to stop all the enemies when the game has been won or lost.
+
+For collision detection perhaps a event emitter that emmits the charater positions
