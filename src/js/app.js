@@ -15,6 +15,7 @@ var Enemy = function(rowStart) {
     // Distance for enemy character to move x y.
     this.moveHor = 101;
     this.moveVer = 83;
+    this.speedValue = '';
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
@@ -31,26 +32,32 @@ var Enemy = function(rowStart) {
 
 };
 
+Enemy.prototype.speed = function(min = 150, max = 350) {
+  this.speedValue = Math.floor( Math.random() * (max - min) + min );
+};
+
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+
+    if(this.speedValue === ''){
+      this.speed();
+    }
 
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
     if(this.x < 501){
-      this.x += 200 * dt;
+      this.x += this.speedValue * dt;
     } else {
       //reset
+      this.speed();
+      console.log('New speed', this.speedValue)
       this.x = -85;
     }
     this.render();
 
 };
-
-Enemy.prototype.start = function() {
-
-}
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
@@ -152,8 +159,6 @@ Player.prototype.detectCollision = function (){
       }
 
   });
-
-  // The objects are touching
 
 }
 
