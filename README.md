@@ -53,3 +53,4 @@ Need to refactor code from ES5 to ES6 Classes [ ]
 Need to add a interface class to handle:
 - Selecting players [ ]
 - Logging wins / losses [ ]
+- Tweak the collision detection paramenters [ ]
