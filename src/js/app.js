@@ -1,172 +1,172 @@
 // Enemies our player must avoid
 class Enemy {
 
-    constructor(rowStart) {
+	constructor(rowStart) {
 
-      // Variables applied to each of our instances go here,
-      // we've provided one for you to get started
-      this.x = 0;
-      this.y = 53;
+		// Variables applied to each of our instances go here,
+		// we've provided one for you to get started
+		this.x = 0;
+		this.y = 53;
 
-      // Canvas extremeties
-      this.canvasTopEdge = -45;
-      this.canvasBottomEdge = 370;
-      this.canvasLeftEdge = -2;
-      this.canvasRightEdge = 400;
-      this.canvasWinZone = 38;
+		// Canvas extremeties
+		this.canvasTopEdge = -45;
+		this.canvasBottomEdge = 370;
+		this.canvasLeftEdge = -2;
+		this.canvasRightEdge = 400;
+		this.canvasWinZone = 38;
 
-      // Distance for enemy character to move x y.
-      this.moveHor = 101;
-      this.moveVer = 83;
-      this.speedValue = '';
+		// Distance for enemy character to move x y.
+		this.moveHor = 101;
+		this.moveVer = 83;
+		this.speedValue = '';
 
-      // The image/sprite for our enemies, this uses
-      // a helper we've provided to easily load images
-      this.sprite = 'images/enemy-bug.png';
-      this.height = 171;
-      this.width = 101;
+		// The image/sprite for our enemies, this uses
+		// a helper we've provided to easily load images
+		this.sprite = 'images/enemy-bug.png';
+		this.height = 171;
+		this.width = 101;
 
-      // Crash Zone
-      this.crashHeight = this.height - 50;
-      this.crashWidth = this.width - 50;
+		// Crash Zone
+		this.crashHeight = this.height - 50;
+		this.crashWidth = this.width - 50;
 
-      this.rowStart = rowStart > 0 ? this.y + (this.moveVer * rowStart) : this.y;
-      this.start = true;
+		this.rowStart = rowStart > 0 ? this.y + (this.moveVer * rowStart) : this.y;
+		this.start = true;
 
-    }
+	}
 
-    speed(min = 150, max = 350) {
-      this.speedValue = Math.floor( Math.random() * (max - min) + min );
-    };
+	speed(min = 150, max = 350) {
+		this.speedValue = Math.floor( Math.random() * (max - min) + min );
+	}
 
-    // Update the enemy's position, required method for game
-    // Parameter: dt, a time delta between ticks
-    update(dt) {
+	// Update the enemy's position, required method for game
+	// Parameter: dt, a time delta between ticks
+	update(dt) {
 
-        if(this.speedValue === ''){
-          this.speed();
-        }
+		if(this.speedValue === ''){
+			this.speed();
+		}
 
-        // You should multiply any movement by the dt parameter
-        // which will ensure the game runs at the same speed for
-        // all computers.
-        if(this.x < 501){
-          this.x += this.speedValue * dt;
-        } else {
-          //reset
-          this.speed();
-          console.log('New speed', this.speedValue)
-          this.x = -85;
-        }
-        this.render();
+		// You should multiply any movement by the dt parameter
+		// which will ensure the game runs at the same speed for
+		// all computers.
+		if(this.x < 501){
+			this.x += this.speedValue * dt;
+		} else {
+			//reset
+			this.speed();
+			console.log('New speed', this.speedValue);
+			this.x = -85;
+		}
+		this.render();
 
-    };
+	}
 
-    // Draw the enemy on the screen, required method for game
-    render() {
-        if(this.start === true)
-          this.y = this.rowStart;
-        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    };
+	// Draw the enemy on the screen, required method for game
+	render() {
+		if(this.start === true)
+			this.y = this.rowStart;
+		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+	}
 
-};
+}
 
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
 
-  constructor() {
+	constructor() {
 
-    // Initial character graphic
-    this.sprite = 'images/char-boy.png';
-    this.height = 171;
-    this.width = 101;
+		// Initial character graphic
+		this.sprite = 'images/char-boy.png';
+		this.height = 171;
+		this.width = 101;
 
-    // Crash Zone
-    this.crashHeight = this.height - 50;
-    this.crashWidth = this.width - 50;
+		// Crash Zone
+		this.crashHeight = this.height - 50;
+		this.crashWidth = this.width - 50;
 
-    // Initial character position
-    this.x = 200;
-    this.y = 370;
+		// Initial character position
+		this.x = 200;
+		this.y = 370;
 
-    // Canvas extremeties
-    this.canvasTopEdge = -45;
-    this.canvasBottomEdge = 370;
-    this.canvasLeftEdge = -2;
-    this.canvasRightEdge = 400;
-    this.canvasWinZone = 38;
+		// Canvas extremeties
+		this.canvasTopEdge = -45;
+		this.canvasBottomEdge = 370;
+		this.canvasLeftEdge = -2;
+		this.canvasRightEdge = 400;
+		this.canvasWinZone = 38;
 
-    // Distance for character to move x y.
-    this.moveHor = 101;
-    this.moveVer = 83;
+		// Distance for character to move x y.
+		this.moveHor = 101;
+		this.moveVer = 83;
 
-  }
+	}
 
-  update(dt) {
-    if(this.checkWin()){
-      this.logWin();
-    } else {
-      this.render();
-    }
-  }
+	update(dt) {
+		if(this.checkWin()){
+			this.logWin();
+		} else {
+			this.render();
+		}
+	}
 
-  render() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-  }
+	render() {
+		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+	}
 
-  handleInput(keyCode) {
+	handleInput(keyCode) {
 
-    switch (keyCode) {
-      case 'up':
-        this.y > this.canvasTopEdge ? this.y -= this.moveVer : this.y;
-        break;
-      case 'down':
-      this.y < this.canvasBottomEdge ? this.y += this.moveVer : this.y;
-        break;
-      case 'left':
-        this.x > this.canvasLeftEdge ? this.x -= this.moveHor : this.x;
-        break;
-      case 'right':
-        this.x < this.canvasRightEdge ? this.x += this.moveHor : this.x;
-        break;
-      default:
+		switch (keyCode) {
+		case 'up':
+			this.y > this.canvasTopEdge ? this.y -= this.moveVer : this.y;
+			break;
+		case 'down':
+			this.y < this.canvasBottomEdge ? this.y += this.moveVer : this.y;
+			break;
+		case 'left':
+			this.x > this.canvasLeftEdge ? this.x -= this.moveHor : this.x;
+			break;
+		case 'right':
+			this.x < this.canvasRightEdge ? this.x += this.moveHor : this.x;
+			break;
+		default:
 
-    }
-    this.update();
-  }
+		}
+		this.update();
+	}
 
-  checkWin() {
-    this.detectCollision();
-    return this.y < this.canvasWinZone ? true : false;
-  }
+	checkWin() {
+		this.detectCollision();
+		return this.y < this.canvasWinZone ? true : false;
+	}
 
-  logWin() {
-    console.log("Won");
-    this.reset();
-  }
+	logWin() {
+		console.log('Won');
+		this.reset();
+	}
 
-  reset() {
-    this.y = 370;
-    this.x = 200;
-    this.render();
-  }
+	reset() {
+		this.y = 370;
+		this.x = 200;
+		this.render();
+	}
 
-  detectCollision() {
+	detectCollision() {
 
-    Object.apply(allEnemies, this);
+		Object.apply(allEnemies, this);
 
-    allEnemies.forEach((enemy) => {
+		allEnemies.forEach((enemy) => {
 
-      if (this.x < enemy.x + enemy.crashWidth  && this.x + this.crashWidth  > enemy.x &&
-        this.y < enemy.y + enemy.crashHeight && this.y + this.crashHeight > enemy.y) {
-          this.reset();
-        }
+			if (this.x < enemy.x + enemy.crashWidth  && this.x + this.crashWidth  > enemy.x &&
+				this.y < enemy.y + enemy.crashHeight && this.y + this.crashHeight > enemy.y) {
+				this.reset();
+			}
 
-    });
+		});
 
-  }
+	}
 
 }
 
@@ -185,12 +185,12 @@ var allEnemies = [bug1, bug2, bug3];
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down'
-    };
+	var allowedKeys = {
+		37: 'left',
+		38: 'up',
+		39: 'right',
+		40: 'down'
+	};
 
-    player.handleInput(allowedKeys[e.keyCode]);
+	player.handleInput(allowedKeys[e.keyCode]);
 });
