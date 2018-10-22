@@ -57,3 +57,7 @@ node_modules/
 # PineGrow #
 ############
 _pgbackup/
+
+# Build Files #
+############
+build/
