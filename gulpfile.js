@@ -22,7 +22,7 @@ gulp.task('sass', function () {
             browsers: ['last 2 versions'],
             cascade: false
         }))
-    .pipe(gulp.dest('./build/css'))
+    .pipe(gulp.dest('./build/css/'))
     .pipe(browserSync.stream());
 });
 
@@ -53,7 +53,12 @@ gulp.task('html', function () {
   .pipe(gulp.dest('./build/'));
 });
 
-gulp.task('copy', ['html']);
+gulp.task('images', function () {
+  return gulp.src('./src/images/**/*')
+  .pipe(gulp.dest('./build/images/'));
+});
+
+gulp.task('copy', ['html', 'images']);
 
 // Watch Tasks
 
