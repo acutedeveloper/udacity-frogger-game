@@ -1,3 +1,8 @@
+/*global ctx:true*/
+/*global dt:true*/
+/*global Resources:true*/
+/*eslint no-undef: "error"*/
+
 // Enemies our player must avoid
 class Enemy {
 
@@ -27,8 +32,8 @@ class Enemy {
 		this.width = 101;
 
 		// Crash Zone
-		this.crashHeight = this.height - 50;
-		this.crashWidth = this.width - 50;
+		this.crashHeight = 70;
+		this.crashWidth = 95;
 
 		this.rowStart = rowStart > 0 ? this.y + (this.moveVer * rowStart) : this.y;
 		this.start = true;
@@ -55,7 +60,6 @@ class Enemy {
 		} else {
 			//reset
 			this.speed();
-			console.log('New speed', this.speedValue);
 			this.x = -85;
 		}
 		this.render();
@@ -67,6 +71,12 @@ class Enemy {
 		if(this.start === true)
 			this.y = this.rowStart;
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+
+		this.crashZoneX = this.x + 5;
+		this.crashZoneY = this.y + 83;
+
+		ctx.rect(this.crashZoneX, this.crashZoneY, this.crashWidth, this.crashHeight);
+
 	}
 
 }
@@ -83,13 +93,15 @@ class Player {
 		this.height = 171;
 		this.width = 101;
 
-		// Crash Zone
-		this.crashHeight = this.height - 50;
-		this.crashWidth = this.width - 50;
-
 		// Initial character position
 		this.x = 200;
 		this.y = 370;
+
+		// Crash Zone
+		this.crashHeight = 70;
+		this.crashWidth = 95;
+		this.crashZoneX;
+		this.crashZoneY;
 
 		// Canvas extremeties
 		this.canvasTopEdge = -45;
@@ -104,7 +116,7 @@ class Player {
 
 	}
 
-	update(dt) {
+	update() {
 		if(this.checkWin()){
 			this.logWin();
 		} else {
@@ -114,6 +126,13 @@ class Player {
 
 	render() {
 		ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+		// Render the crashZone
+
+		this.crashZoneX = this.x + 5;
+		this.crashZoneY = this.y + 100;
+
+		ctx.rect(this.crashZoneX, this.crashZoneY, this.crashWidth, this.crashHeight);
+
 	}
 
 	handleInput(keyCode) {
@@ -143,8 +162,9 @@ class Player {
 	}
 
 	logWin() {
-		console.log('Won');
 		this.reset();
+		const modal = document.querySelector('.arcade-modal');
+		modal.classList.toggle('js-active');
 	}
 
 	reset() {
@@ -159,8 +179,8 @@ class Player {
 
 		allEnemies.forEach((enemy) => {
 
-			if (this.x < enemy.x + enemy.crashWidth  && this.x + this.crashWidth  > enemy.x &&
-				this.y < enemy.y + enemy.crashHeight && this.y + this.crashHeight > enemy.y) {
+			if (this.crashZoneX < enemy.crashZoneX + enemy.crashWidth  && this.crashZoneX + this.crashWidth  > enemy.crashZoneX &&
+				this.crashZoneY < enemy.crashZoneY + enemy.crashHeight && this.crashZoneY + this.crashHeight > enemy.crashZoneY) {
 				this.reset();
 			}
 
