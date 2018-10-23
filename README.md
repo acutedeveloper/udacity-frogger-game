@@ -1,12 +1,16 @@
 frontend-nanodegree-arcade-game
 ===============================
 
-Main objects are characters
-The methods they share are, render & update
+## System Requirements
+Node.js (Tested with v8.11.3)
+Node Package Manager CLI
 
-Property they have is a sprite
+## Instructions
 
-Player has unique method - handle input.
+To run the game
+1. Clone or download the repo
+2. Navigate to the folder and run `npm install`
+3. run `gulp play`
 
 ## Udacity Notes
 
@@ -22,16 +26,15 @@ In this game you have a Player and Enemies (bugs). The goal of the player is to 
 * The enemies move at varying speeds on the paved block portion of the game board [x]
 * Once a the player collides with an enemy, the game is reset and the player moves back to the starting square [x]
 * Once the player reaches the water (i.e., the top of the game board), the game is won [x]
-* Check out a quick video demo of the game in action below!
 
 **Rubiric Requirements**
 The game functions correctly and runs error free
 
 * Player can not move off screen [x]
 * Vehicles cross the screen [x]
-* Vehicle-player collisions happen logically (not too early or too late) [ ]
+* Vehicle-player collisions happen logically (not too early or too late) [x]
 * Vehicle-player collision resets the game [x]
-* Something happens when player wins [ ]
+* Something happens when player wins [x]
 
 ## Additional Functionality (Optional)
 
@@ -49,8 +52,12 @@ Individual Block: 101 x 83
 Image Height: 171
 
 ## 21/10/18
-Need to refactor code from ES5 to ES6 Classes [ ]
+Need to refactor code from ES5 to ES6 Classes [x]
 Need to add a interface class to handle:
 - Selecting players [ ]
 - Logging wins / losses [ ]
-- Tweak the collision detection paramenters [ ]
+- Tweak the collision detection paramenters [x]
+
+## 23/10/18
+Used the HTML canvas to create a new rect() element that aided setting up a more
+precise collision detection zone.
