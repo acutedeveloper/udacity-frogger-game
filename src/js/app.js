@@ -116,6 +116,7 @@ class Player {
 
 	}
 
+	// Checks if the character has reached the other side
 	update() {
 		if(this.checkWin()){
 			this.logWin();
@@ -156,13 +157,15 @@ class Player {
 		this.update();
 	}
 
+	// Check if the character is in the winzone
 	checkWin() {
 		this.detectCollision();
 		return this.y < this.canvasWinZone ? true : false;
 	}
-
+	// Reset the position of the character
 	logWin() {
 		this.reset();
+		// Add points to the scoreboard
 		gameInterface.updateScore();
 	}
 
@@ -198,6 +201,7 @@ const gameData = {
 	lives: 3
 };
 
+
 class GameInterface {
 	constructor() {
 		this.modal = document.querySelector('.arcade-modal');
@@ -207,6 +211,7 @@ class GameInterface {
 		this.lives = document.querySelector('.interface__lives');
 
 		this.modalButton.addEventListener('click', () => this.resetInterface() );
+
 		this.updateLives();
 		this.enableControls();
 	}
