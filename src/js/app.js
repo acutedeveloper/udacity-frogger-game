@@ -8,7 +8,7 @@ class Enemy {
 
 	constructor(rowStart) {
 
-		// Variables applied to each of our instances go here,
+		// constiables applied to each of our instances go here,
 		// we've provided one for you to get started
 		this.x = 0;
 		this.y = 53;
@@ -163,8 +163,7 @@ class Player {
 
 	logWin() {
 		this.reset();
-		const modal = document.querySelector('.arcade-modal');
-		modal.classList.toggle('js-active');
+		gameInterface.updateScore();
 	}
 
 	reset() {
@@ -179,9 +178,13 @@ class Player {
 
 		allEnemies.forEach((enemy) => {
 
+			// Is the player touched by an enemy?
 			if (this.crashZoneX < enemy.crashZoneX + enemy.crashWidth  && this.crashZoneX + this.crashWidth  > enemy.crashZoneX &&
 				this.crashZoneY < enemy.crashZoneY + enemy.crashHeight && this.crashZoneY + this.crashHeight > enemy.crashZoneY) {
 				this.reset();
+				// If the player is touched, he needs to loose one life and then be set back to the starting position.
+				// However if they have 0 lives. the game is over.
+				gameInterface.removeLife();
 			}
 
 		});
@@ -190,27 +193,106 @@ class Player {
 
 }
 
+const gameData = {
+	score: 0,
+	lives: 3
+};
+
+class GameInterface {
+	constructor() {
+		this.modal = document.querySelector('.arcade-modal');
+		this.modalButton = document.querySelector('.js__arcade-reset');
+
+		this.scoreBoard = document.querySelector('.interface__scoreboard-value');
+		this.lives = document.querySelector('.interface__lives');
+
+		this.modalButton.addEventListener('click', () => this.resetInterface() );
+		this.updateLives();
+		this.enableControls();
+	}
+
+	enableControls() {
+		document.addEventListener('keyup', this.gameKeys);
+	}
+
+	disableControls() {
+		document.removeEventListener('keyup', this.gameKeys);
+	}
+
+	gameKeys(e){
+		const allowedKeys = {
+			37: 'left',
+			38: 'up',
+			39: 'right',
+			40: 'down'
+		};
+
+		player.handleInput(allowedKeys[e.keyCode]);
+	}
+
+	toggleModal() {
+		this.modal.classList.toggle('js-active');
+		this.disableControls();
+	}
+
+	updateScore() {
+		gameData.score += 10;
+		this.scoreBoard.innerHTML = this.formatScore(gameData.score, 5);
+	}
+
+	removeLife() {
+		gameData.lives -= 1;
+		this.updateLives();
+	}
+
+	updateLives() {
+		if(gameData.lives <= 0) {
+			this.toggleModal();
+		}
+		// empty the lives view
+		this.lives.innerHTML = '';
+
+		let i = 0;
+
+		const life = document.createElement('img');
+		life.setAttribute('class', 'interface__life');
+		life.setAttribute('src', 'images/heart.png');
+
+		// update the lives view
+		while(gameData.lives > i) {
+			this.lives.appendChild(life.cloneNode(true));
+			i++;
+		}
+	}
+
+	formatScore(num, padlen, padchar) {
+		var pad_char = typeof padchar !== 'undefined' ? padchar : '0';
+		var pad = new Array(1 + padlen).join(pad_char);
+		return (pad + num).slice(-pad.length);
+	}
+
+	resetInterface() {
+		gameData.score = 0;
+		gameData.lives = 3;
+		this.scoreBoard.innerHTML = gameData.score;
+		this.updateLives();
+		this.toggleModal();
+		this.enableControls();
+	}
+
+}
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-var player = new Player();
+// Place the player object in a constiable called player
+const player = new Player();
+const gameInterface = new GameInterface();
 
-var bug1 = new Enemy(0);
-var bug2 = new Enemy(1);
-var bug3 = new Enemy(2);
+const bug1 = new Enemy(0);
+const bug2 = new Enemy(1);
+const bug3 = new Enemy(2);
 
-var allEnemies = [bug1, bug2, bug3];
+const allEnemies = [bug1, bug2, bug3];
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
-document.addEventListener('keyup', function(e) {
-	var allowedKeys = {
-		37: 'left',
-		38: 'up',
-		39: 'right',
-		40: 'down'
-	};
-
-	player.handleInput(allowedKeys[e.keyCode]);
-});

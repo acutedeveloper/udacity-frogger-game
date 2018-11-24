@@ -1,0 +1,13 @@
+.interface {
+  display: flex;
+  justify-content: space-around;
+
+  &__life {
+    height: 50px;
+  }
+
+  &__scoreboard {
+    display: flex;
+    align-items: center;
+  }
+}

@@ -10,7 +10,8 @@ Node Package Manager CLI
 To run the game
 1. Clone or download the repo
 2. Navigate to the folder and run `npm install`
-3. run `gulp play`
+3. run `gulp`
+4. Point browser to http://localhost:3000
 
 ## Udacity Notes
 
